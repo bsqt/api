@@ -17,6 +17,12 @@ RUN pip install -r /tmp/requirements.txt
 WORKDIR /app
 USER app
 
+# Export commit info
+ARG COMMIT_HASH
+ARG COMMIT_MESSAGE
+ENV COMMIT_HASH=${COMMIT_HASH}
+ENV COMMIT_MESSAGE=${COMMIT_MESSAGE}
+
 # Copy source code
 COPY api /app/api
 

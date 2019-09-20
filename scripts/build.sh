@@ -11,10 +11,10 @@ CI_COMMIT_SHA=${CI_COMMIT_SHA:-local}
 CONTAINER_IMAGE_NAME="${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
 
 # Get commit message
-CI_COMMIT_MESSAGE=${CI_COMMIT_MESSAGE:-}
+CI_COMMIT_MESSAGE=${CI_COMMIT_MESSAGE:-$(git show -s --format=%B)}
 
 # Build image
 docker build \
-  --build-arg COMMIT_HASH=CI_COMMIT_SHA \
-  --build-arg COMMIT_MESSAGE=CI_COMMIT_MESSAGE \
+  --build-arg COMMIT_HASH="${CI_COMMIT_SHA}" \
+  --build-arg COMMIT_MESSAGE="${CI_COMMIT_MESSAGE}" \
   -t "${CONTAINER_IMAGE_NAME}" .
