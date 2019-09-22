@@ -6,8 +6,8 @@ IFS=$'\n\t'
 export DOCKER_BUILDKIT=1
 
 # Image name
-CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE:-docker.candy.io/biscuit/api}
-CI_COMMIT_SHA=${CI_COMMIT_SHA:-local}
+CI_REGISTRY_IMAGE=${CI_REGISTRY_IMAGE:-docker.bsqt.io/bsqt/api}
+CI_COMMIT_SHA=${CI_COMMIT_SHA:-$(git rev-parse HEAD)}
 CONTAINER_IMAGE_NAME="${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHA}"
 
 # Get commit message

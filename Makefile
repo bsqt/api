@@ -13,6 +13,6 @@ help: ## Print this info and exit
 build: ## Build docker image
 	./scripts/build.sh
 
-.PHONY: run
-run: build ## Run application locally
-	./scripts/run.sh
+.PHONY: up
+up: build ## Run application locally
+	./scripts/up.sh

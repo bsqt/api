@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  api:
+    image: ${CONTAINER_IMAGE_NAME}
+    command:
+      - --reload
+      - --reload-dir=/app/api
+    environment:
+      UWSGI_NEED_APP: 1
+      UWSGI_PY_AUTORELOAD: 3
+      UWSGI_HTTP_SOCKET: ":5000"
+    ports:
+      - 8000:8000
+    volumes:
+      - ./api:/app/api:ro
