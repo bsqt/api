@@ -1,0 +1,34 @@
+kind: Project
+name: bsqt-api
+environments:
+  - name: local
+    providers:
+      - name: local-kubernetes
+        context: microk8s
+        namespace: local
+        defaultHostname: local.app.garden
+
+---
+kind: Module
+type: container
+name: bsqt-api-image
+# TODO(i.kosolapov): Replace with actual info
+buildArgs:
+  COMMIT_HASH: local
+  COMMIT_MESSAGE: local
+image: docker.bsqt.io/bsqt/api
+services:
+  - name: api
+    args:
+      - --reload
+    ports:
+      - name: http
+        containerPort: 8000
+    healthCheck:
+      httpGet:
+        path: /config
+        port: http
+    ingresses:
+      - path: /
+        port: http
+        hostname: api.${providers.local-kubernetes.outputs.default-hostname}

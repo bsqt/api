@@ -2,3 +2,7 @@
 .idea/
 
 ### Python
+
+### Garden
+.garden
+error.log
