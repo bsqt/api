@@ -1,6 +1,7 @@
 ---
 kind: Project
 name: bsqt-api
+defaultEnvironment: local
 environments:
   - name: local
     providers:
@@ -16,7 +17,7 @@ variables:
 ---
 kind: Module
 type: container
-name: bsqt-api-image
+name: bsqt-api
 image: docker.bsqt.io/bsqt/api
 buildArgs:
   COMMIT_HASH: ${var.commit-hash}
