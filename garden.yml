@@ -1,3 +1,4 @@
+---
 kind: Project
 name: bsqt-api
 environments:
@@ -7,28 +8,40 @@ environments:
         context: microk8s
         namespace: local
         defaultHostname: local.app.garden
+variables:
+  domain: local.app.garden
+  commit-hash: ${local.env.CI_COMMIT_SHA || "local"}
+  commit-message: ${local.env.CI_COMMIT_MESSAGE || "local"}
 
 ---
 kind: Module
 type: container
 name: bsqt-api-image
-# TODO(i.kosolapov): Replace with actual info
-buildArgs:
-  COMMIT_HASH: local
-  COMMIT_MESSAGE: local
 image: docker.bsqt.io/bsqt/api
+buildArgs:
+  COMMIT_HASH: ${var.commit-hash}
+  COMMIT_MESSAGE: ${var.commit-message}
+hotReload:
+  sync:
+    - source: ./api
+      target: /app/api/
 services:
   - name: api
     args:
+      - gunicorn
+      - api.__main__:app
+      - --bind=0.0.0.0:8000
+      - --worker-class=sanic.worker.GunicornWorker
+    hotReloadArgs:
+      - gunicorn
+      - api.__main__:app
+      - --bind=0.0.0.0:8000
+      - --worker-class=sanic.worker.GunicornWorker
       - --reload
     ports:
       - name: http
         containerPort: 8000
-    healthCheck:
-      httpGet:
-        path: /config
-        port: http
     ingresses:
       - path: /
         port: http
-        hostname: api.${providers.local-kubernetes.outputs.default-hostname}
+        hostname: api.${var.domain}

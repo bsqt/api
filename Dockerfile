@@ -35,6 +35,3 @@ EXPOSE 8000
 
 # Copy source code
 COPY api /app/api
-
-# Run uvicorn
-ENTRYPOINT [ "uvicorn", "api.__main__:app", "--host=0.0.0.0", "--port=8000" ]
