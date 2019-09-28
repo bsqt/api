@@ -1,6 +1,6 @@
 ---
 kind: Project
-name: bsqt-api
+name: bsqt
 defaultEnvironment: local
 environments:
   - name: local
@@ -16,33 +16,36 @@ variables:
 
 ---
 kind: Module
+type: helm
+name: api
+chartPath: charts/api
+build:
+  dependencies:
+    - api-image
+serviceResource:
+  kind: Deployment
+  containerModule: api-image
+  hotReloadArgs:
+    - --reload
+values:
+  image:
+    repository: docker.bsqt.io/bsqt/api
+    tag: ${modules.api-image.version}
+  ingress:
+    enabled: true
+    hosts:
+      - host: api.${var.domain}
+        path: /
+
+---
+kind: Module
 type: container
-name: bsqt-api
+name: api-image
 image: docker.bsqt.io/bsqt/api
 buildArgs:
   COMMIT_HASH: ${var.commit-hash}
   COMMIT_MESSAGE: ${var.commit-message}
 hotReload:
   sync:
-    - source: ./api
-      target: /app/api/
-services:
-  - name: api
-    args:
-      - gunicorn
-      - api.__main__:app
-      - --bind=0.0.0.0:8000
-      - --worker-class=sanic.worker.GunicornWorker
-    hotReloadArgs:
-      - gunicorn
-      - api.__main__:app
-      - --bind=0.0.0.0:8000
-      - --worker-class=sanic.worker.GunicornWorker
-      - --reload
-    ports:
-      - name: http
-        containerPort: 8000
-    ingresses:
-      - path: /
-        port: http
-        hostname: api.${var.domain}
+    - target: /app/api
+      source: ./api

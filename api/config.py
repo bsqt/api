@@ -5,7 +5,7 @@ from sanic import Sanic
 
 
 class Field:
-    value = None
+    value = Nones
 
     def __init__(
         self, *,

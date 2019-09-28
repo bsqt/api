@@ -1,0 +1,17 @@
+# Default values for api.
+
+replicaCount: 1
+
+image:
+  repository: docker.bsqt.io/bsqt/api
+  tag: ""
+
+fullnameOverride: "api"
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts: []
+  tls: []
+
+resources: {}
