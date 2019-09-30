@@ -23,6 +23,11 @@ Or:
 garden delete env --logger-type=basic
 ```
 
+## Logs
+```bash
+garden logs --logger-type=basic --follow
+```
+
 ## Clean up
 ```bash
 garden delete env --logger-type=basic

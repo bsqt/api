@@ -19,6 +19,7 @@ spec:
       containers:
         - name: api
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           command:
             - gunicorn
             - --worker-class=sanic.worker.GunicornWorker
@@ -30,11 +31,11 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /config
               port: http
           readinessProbe:
             httpGet:
-              path: /
+              path: /config
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

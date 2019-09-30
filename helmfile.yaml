@@ -1,0 +1,12 @@
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+
+releases:
+  - name: api
+    chart: ./charts/api
+    values:
+      - image:
+          repository: bsqt/api
+          tag: local
+    wait: true

@@ -4,9 +4,11 @@ replicaCount: 1
 
 image:
   repository: docker.bsqt.io/bsqt/api
-  tag: ""
+  tag:
+  pullPolicy: IfNotPresent
 
-fullnameOverride: "api"
+service:
+  type: ClusterIP
 
 ingress:
   enabled: false
