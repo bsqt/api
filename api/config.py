@@ -75,3 +75,22 @@ class AppConfig(BaseConfig):
         required=True,
         doc='Git commit message associated with image',
     )
+
+    # Redis
+    REDIS_HOST = Field(
+        required=True,
+        doc='Redis host',
+    )
+    REDIS_PASSWORD = Field(
+        required=True,
+        sensitive=True,
+        doc='Redis password',
+    )
+    REDIS_PORT = Field(
+        default=6379,
+        doc='Redis port'
+    )
+    REDIS_DB = Field(
+        default=0,
+        doc='Redis host',
+    )

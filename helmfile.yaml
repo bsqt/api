@@ -2,11 +2,23 @@ repositories:
   - name: stable
     url: https://kubernetes-charts.storage.googleapis.com
 
+helmDefaults:
+  verify: true
+  wait: true
+  recreatePods: true
+
 releases:
   - name: api
     chart: ./charts/api
     values:
       - image:
-          repository: bsqt/api
           tag: local
-    wait: true
+          pullPolicy: Always
+
+  - name: redis
+    chart: stable/redis
+    version: 9.2.1
+    recreatePods: false
+    values:
+      - cluster:
+          enabled: false

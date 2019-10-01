@@ -29,6 +29,14 @@ spec:
             - name: http
               containerPort: 8000
               protocol: TCP
+          env:
+            - name: REDIS_HOST
+              value: "redis-master-0.redis-headless"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis
+                  key: redis-password
           livenessProbe:
             httpGet:
               path: /config

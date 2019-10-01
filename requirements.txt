@@ -1,3 +1,6 @@
 # Web
 sanic==19.6.3
 gunicorn==19.9.0
+
+# Databases and queues
+redis==3.3.8
