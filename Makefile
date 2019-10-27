@@ -14,5 +14,5 @@ build: ## Build docker image
 	./scripts/build.sh
 
 .PHONY: up
-up: ## Run application and tail logs
+up: build ## Run application and tail logs
 	./scripts/up.sh

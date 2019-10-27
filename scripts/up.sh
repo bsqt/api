@@ -7,7 +7,7 @@ export COMPOSE_PROJECT_NAME=bsqt_local
 function cleanup() {
     docker-compose down
 }
-trap EXIT cleanup
+trap cleanup EXIT
 
 docker-compose up -d
 
