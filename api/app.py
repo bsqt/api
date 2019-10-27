@@ -7,7 +7,7 @@ from sanic.response import json
 from api.config import AppConfig
 
 
-def create_app():
+def create_app() -> Sanic:
     app = Sanic(
         load_env=False,
     )
@@ -19,7 +19,7 @@ def create_app():
     # Attach redis
     redis = Redis(
         host=app.config.REDIS_HOST,
-        db=app.config.REDIS_DATABASE,
+        db=app.config.REDIS_DB,
     )
     app.redis = redis
 

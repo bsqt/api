@@ -5,6 +5,7 @@ services:
     command:
       - gunicorn
       - --bind=0.0.0.0:5000
+      - --worker-class=sanic.worker.GunicornWorker
       - api.__main__:app
     ports:
       - 5000:5000
