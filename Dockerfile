@@ -34,4 +34,4 @@ ENV COMMIT_MESSAGE=${COMMIT_MESSAGE}
 EXPOSE 8000
 
 # Copy source code
-COPY api /app/api
+COPY api api

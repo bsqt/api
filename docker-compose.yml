@@ -2,3 +2,21 @@ version: '3.7'
 services:
   api:
     image: "${CONTAINER_IMAGE_NAME:?CONTAINER_IMAGE_NAME is required}"
+    command:
+      - gunicorn
+      - --bind=0.0.0.0:5000
+      - api.__main__:app
+    ports:
+      - 5000:5000
+    environment:
+      REDIS_HOST: redis
+    networks:
+      - backend
+
+  redis:
+    image: redis:5.0.6-alpine3.10
+    networks:
+      - backend
+
+networks:
+  backend:

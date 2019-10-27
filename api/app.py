@@ -1,8 +1,11 @@
+import random
+
+from redis import Redis
 from sanic import Sanic
 from sanic.response import json
-import random
+
 from api.config import AppConfig
-from redis import Redis
+
 
 def create_app():
     app = Sanic(
@@ -16,7 +19,6 @@ def create_app():
     # Attach redis
     redis = Redis(
         host=app.config.REDIS_HOST,
-        password=app.config.REDIS_PASSWORD,
         db=app.config.REDIS_DATABASE,
     )
     app.redis = redis
