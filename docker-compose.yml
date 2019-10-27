@@ -1,0 +1,4 @@
+version: '3.7'
+services:
+  api:
+    image: "${CONTAINER_IMAGE_NAME:?CONTAINER_IMAGE_NAME is required}"
