@@ -1,5 +1,5 @@
 # Web
-sanic==19.6.3
+sanic==20.12.7
 gunicorn==19.9.0
 
 # Databases and queues
